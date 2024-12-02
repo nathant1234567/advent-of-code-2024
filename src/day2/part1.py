@@ -1,16 +1,16 @@
 def check_if_safe(input):
-        # assume initially that the report is safe
-            is_increasing = True
-            is_decreasing = True
+        levels = list(map(int, input.split()))
 
-            # Check each difference manually
-            for diff in input:
-                if not (1 <= diff <= 3):  # If any difference violates the increasing rule
-                    is_increasing = False
-                if not (-3 <= diff <= -1):  # If any difference violates the decreasing rule
-                    is_decreasing = False
+        differences = [levels[i + 1] - levels[i] for i in range(len(levels) - 1)]
 
-            return is_increasing or is_decreasing
+        # Rule 1
+        all_increasing = all(diff > 0 for diff in differences)
+        all_decreasing = all(diff < 0 for diff in differences)
+
+        # Rule 2
+        valid_differences = all(1 <= abs(diff) <= 3 for diff in differences)
+
+        return (all_increasing or all_decreasing) and valid_differences
 
 def main():
 
@@ -18,14 +18,12 @@ def main():
 
     with open("day2-data.txt") as file:
         for line in file:
-            # convert the line into a list of integers
+
             levels = list(map(int, line.split()))
 
-            # calculate the differences between consecutive levels
             differences = [levels[i + 1] - levels[i] for i in range(len(levels) - 1)]
 
-            # If either increasing or decreasing condition holds, the report is safe
-            if check_if_safe(differences):
+            if check_if_safe(line.strip()):
                 safe_count += 1
 
     print(safe_count)

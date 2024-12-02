@@ -30,5 +30,6 @@ def main():
 
     print(safe_count)
 
+
 if __name__ == "__main__":
     main()

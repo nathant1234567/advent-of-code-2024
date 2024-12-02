@@ -1,14 +1,5 @@
 def if_safe(levels):
-    """
-    Determine if a report is safe based on its levels.
-
-    Args:
-        levels (list): A list of integers representing the levels in the report.
-
-    Returns:
-        bool: True if the report is safe, False otherwise.
-    """
-    # Calculate the differences between consecutive levels
+    # calculate the differences between consecutive levels
     differences = [levels[i + 1] - levels[i] for i in range(len(levels) - 1)]
 
     # Assume initially that the report is safe
@@ -34,7 +25,6 @@ def main():
             # convert the line into a list of integers
             levels = list(map(int, line.split()))
 
-            # check if the report is safe using the if_safe function
             if if_safe(levels):
                 safe_count += 1
 

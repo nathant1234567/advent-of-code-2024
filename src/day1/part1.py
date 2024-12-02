@@ -2,7 +2,7 @@
 def main():
 
     sum = 0
-    with open("test.txt") as file:
+    with open("day1-test.txt") as file:
         list1 = []
         list2 = []
         for line in file:
@@ -19,8 +19,7 @@ def main():
             sum += temp
             
         print(sum)
-            
-        
+
         
     
 if __name__ == "__main__":

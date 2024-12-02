@@ -13,14 +13,12 @@ def main():
             is_increasing = True
             is_decreasing = True
 
-            # Check each difference manually
             for diff in differences:
-                if not (1 <= diff <= 3):  # If any difference violates the increasing rule
+                if not (1 <= diff <= 3): 
                     is_increasing = False
-                if not (-3 <= diff <= -1):  # If any difference violates the decreasing rule
+                if not (-3 <= diff <= -1): 
                     is_decreasing = False
 
-            # If either increasing or decreasing condition holds, the report is safe
             if is_increasing or is_decreasing:
                 safe_count += 1
 

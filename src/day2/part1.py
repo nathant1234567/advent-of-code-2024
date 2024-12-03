@@ -18,11 +18,6 @@ def main():
 
     with open("day2-data.txt") as file:
         for line in file:
-
-            levels = list(map(int, line.split()))
-
-            differences = [levels[i + 1] - levels[i] for i in range(len(levels) - 1)]
-
             if check_if_safe(line.strip()):
                 safe_count += 1
 

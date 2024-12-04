@@ -11,7 +11,8 @@ def check_pattern(input):
     # Use re.findall to find all occurrences of the pattern in the input string
     # It returns a list of tuples with matched groups: 
     # (the entire match, first number, second number) for 'mul', or (the command) for 'do' or 'don't'
-    instructions = re.findall(pattern, "".join(input))
+    instructions = re.findall(pattern, input)
+    print(instructions)
 
     enabled = True  # Initialize a flag to track whether operations are enabled
     result = 0  # Variable to store the resulting value

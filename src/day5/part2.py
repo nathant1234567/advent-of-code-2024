@@ -6,6 +6,7 @@ def seperate_sections(file):
 
     return section1, section2
 
+
 def parse_rules(rules_section):
     rules = []
     for line in rules_section:
@@ -13,34 +14,45 @@ def parse_rules(rules_section):
         rules.append((int(x), int(y)))
     return rules
 
+
 def is_update_ordered(update, rules):
-    page_positions = {page: index for index, page in enumerate(update)} # so [75, 47, 61, 53, 29] would create {75: 0, 47: 1, 61: 2, 53: 3, 29: 4}
+    page_positions = {page: index for index, page in enumerate(update)}
 
     for x, y in rules:
         if x in page_positions and y in page_positions:
             if page_positions[x] >= page_positions[y]:
                 return False
-            
+
     return True
 
+
 def get_middle_page(update):
-    mid_index = len(update) // 2 # this was the easiest bit lmao
+    mid_index = len(update) // 2
     return update[mid_index]
 
-def order(inordered):
-    pass
+
+def order(inordered, rules):
+    precedence = {page: set() for page in inordered}
+
+    for x, y in rules:
+        if x in inordered and y in inordered:
+            precedence[y].add(x)
+
+    return sorted(inordered, key=lambda page: len(precedence[page]))
+
 
 def parse_data(sec1, sec2):
     rules = parse_rules(sec1)
 
-    sum = 0
-    #inordered_array = []
+    sum_middle_pages = 0
     for line in sec2:
-        update = list(map(int,line.split(","))) # parse into ints
-        if not(is_update_ordered(update, rules)):
-            #inordered_array.append(update)
-            sum += order(update)
-    return sum
+        update = list(map(int, line.split(",")))  # Parse update into integers
+        if not is_update_ordered(update, rules):
+            corrected_update = order(update, rules)
+            sum_middle_pages += get_middle_page(corrected_update)
+
+    return sum_middle_pages
+
 
 def main():
     with open("day5-data.txt") as file:
@@ -50,6 +62,7 @@ def main():
     result = parse_data(sec1, sec2)
 
     print(result)
+
 
 if __name__ == "__main__":
     main()
